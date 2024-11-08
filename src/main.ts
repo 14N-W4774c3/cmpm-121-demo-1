@@ -26,6 +26,7 @@ function haunting(ghostsAdded: number) {
   ghosts += ghostsAdded;
   spookyCounter.textContent = `Hauntings: ${ghosts}`;
 }
+setInterval (haunting, 1000, 1);
 
 spookyButton.onclick = () => {
   haunting(1);
