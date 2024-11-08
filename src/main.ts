@@ -22,11 +22,11 @@ const spookyButton = document.createElement("button");
 spookyButton.textContent = "👻";
 document.body.append(spookyButton);
 
-function haunting() {
-  ghosts++;
+function haunting(ghostsAdded: number) {
+  ghosts += ghostsAdded;
   spookyCounter.textContent = `Hauntings: ${ghosts}`;
 }
 
 spookyButton.onclick = () => {
-    haunting();
+  haunting(1);
 };
