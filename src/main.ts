@@ -18,6 +18,8 @@ spookyDiv.append(spookyCounter);
 
 let ghosts: number = 0;
 let hauntingStart: number | undefined;
+let hauntMultiplier: number = 0;
+const hauntMultiplierCost: number = 10;
 
 const buttonDiv: HTMLDivElement = document.createElement("div");
 app.append(buttonDiv);
@@ -25,6 +27,24 @@ app.append(buttonDiv);
 const spookyButton: HTMLButtonElement = document.createElement("button");
 spookyButton.textContent = "👻";
 buttonDiv.append(spookyButton);
+
+const hauntingShopDiv: HTMLDivElement = document.createElement("div");
+app.append(hauntingShopDiv);
+
+const hauntMultiplierUpgrade: HTMLButtonElement = document.createElement("button");
+hauntMultiplierUpgrade.textContent = "Increment Haunt Multiplier";
+hauntingShopDiv.append(hauntMultiplierUpgrade);
+
+if (ghosts < hauntMultiplierCost) {hauntMultiplierUpgrade.disabled = true;}
+
+if (hauntMultiplierUpgrade.disabled && ghosts >= hauntMultiplierCost) {hauntMultiplierUpgrade.disabled = false;}
+
+hauntMultiplierUpgrade.onclick = () => {
+  if (ghosts >= hauntMultiplierCost) {
+    hauntMultiplier++;
+    ghosts -= hauntMultiplierCost;
+  }
+};
 
 function haunting(ghostsAdded: number): void {
   ghosts += ghostsAdded;
@@ -37,7 +57,7 @@ function continuousHaunting(): void {
   }
   const hauntCount: number = (performance.now() - hauntingStart) / 1000;
   hauntingStart = performance.now();
-  haunting(hauntCount);
+  haunting(hauntCount * hauntMultiplier);
   requestAnimationFrame(continuousHaunting);
 }
 
