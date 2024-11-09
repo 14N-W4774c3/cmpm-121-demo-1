@@ -5,35 +5,37 @@ const app: HTMLDivElement = document.querySelector("#app")!;
 const gameName = "My spooky game";
 document.title = gameName;
 
-const header = document.createElement("h1");
+const header: HTMLHeadingElement = document.createElement("h1");
 header.innerHTML = gameName;
 app.append(header);
 
-const spookyDiv = document.createElement("div");
+const spookyDiv: HTMLDivElement = document.createElement("div");
 app.append(spookyDiv);
 
-const spookyCounter = document.createElement("p");
+const spookyCounter: HTMLParagraphElement = document.createElement("p");
 spookyCounter.textContent = "Hauntings: 0";
 spookyDiv.append(spookyCounter);
 
 let ghosts: number = 0;
 let hauntingStart: number | undefined;
 
-const spookyButton = document.createElement("button");
-spookyButton.textContent = "👻";
-app.append(spookyButton);
+const buttonDiv: HTMLDivElement = document.createElement("div");
+app.append(buttonDiv);
 
-function haunting(ghostsAdded: number) {
+const spookyButton: HTMLButtonElement = document.createElement("button");
+spookyButton.textContent = "👻";
+buttonDiv.append(spookyButton);
+
+function haunting(ghostsAdded: number): void {
   ghosts += ghostsAdded;
   spookyCounter.textContent = `Hauntings: ${ghosts.toFixed(2)}`;
 }
-//setInterval (haunting, 1000, 1);
 
-function continuousHaunting() {
+function continuousHaunting(): void {
   if (hauntingStart === undefined) {
     hauntingStart = performance.now();
   }
-  const hauntCount = (performance.now() - hauntingStart)/1000;
+  const hauntCount: number = (performance.now() - hauntingStart) / 1000;
   hauntingStart = performance.now();
   haunting(hauntCount);
   requestAnimationFrame(continuousHaunting);
