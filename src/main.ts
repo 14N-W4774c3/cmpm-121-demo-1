@@ -16,7 +16,8 @@ const spookyCounter = document.createElement("p");
 spookyCounter.textContent = "Hauntings: 0";
 spookyDiv.append(spookyCounter);
 
-let ghosts = 0;
+let ghosts: number = 0;
+let hauntingStart: number | undefined;
 
 const spookyButton = document.createElement("button");
 spookyButton.textContent = "👻";
@@ -26,8 +27,20 @@ function haunting(ghostsAdded: number) {
   ghosts += ghostsAdded;
   spookyCounter.textContent = `Hauntings: ${ghosts}`;
 }
-setInterval (haunting, 1000, 1);
+//setInterval (haunting, 1000, 1);
+
+function continuousHaunting() {
+  if (hauntingStart === undefined) {
+    hauntingStart = performance.now();
+  }
+  const hauntCount = (performance.now() - hauntingStart) / 1000;
+  hauntingStart = performance.now();
+  haunting(hauntCount);
+  requestAnimationFrame(continuousHaunting);
+}
 
 spookyButton.onclick = () => {
   haunting(1);
 };
+
+requestAnimationFrame(continuousHaunting);
