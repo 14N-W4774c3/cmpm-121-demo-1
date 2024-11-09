@@ -25,7 +25,7 @@ document.body.append(spookyButton);
 
 function haunting(ghostsAdded: number) {
   ghosts += ghostsAdded;
-  spookyCounter.textContent = `Hauntings: ${ghosts}`;
+  spookyCounter.textContent = `Hauntings: ${ghosts.toFixed(2)}`;
 }
 //setInterval (haunting, 1000, 1);
 
@@ -33,7 +33,7 @@ function continuousHaunting() {
   if (hauntingStart === undefined) {
     hauntingStart = performance.now();
   }
-  const hauntCount = (performance.now() - hauntingStart) / 1000;
+  const hauntCount = (performance.now() - hauntingStart)/1000;
   hauntingStart = performance.now();
   haunting(hauntCount);
   requestAnimationFrame(continuousHaunting);
