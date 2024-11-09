@@ -35,10 +35,6 @@ const hauntMultiplierUpgrade: HTMLButtonElement = document.createElement("button
 hauntMultiplierUpgrade.textContent = "Increment Haunt Multiplier";
 hauntingShopDiv.append(hauntMultiplierUpgrade);
 
-if (ghosts < hauntMultiplierCost) {hauntMultiplierUpgrade.disabled = true;}
-
-if (hauntMultiplierUpgrade.disabled && ghosts >= hauntMultiplierCost) {hauntMultiplierUpgrade.disabled = false;}
-
 hauntMultiplierUpgrade.onclick = () => {
   if (ghosts >= hauntMultiplierCost) {
     hauntMultiplier++;
@@ -58,6 +54,7 @@ function continuousHaunting(): void {
   const hauntCount: number = (performance.now() - hauntingStart) / 1000;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
+  if (ghosts >= hauntMultiplierCost) {hauntMultiplierUpgrade.disabled = false;} else {hauntMultiplierUpgrade.disabled = true;}
   requestAnimationFrame(continuousHaunting);
 }
 
