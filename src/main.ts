@@ -10,7 +10,7 @@ header.innerHTML = gameName;
 app.append(header);
 
 const spookyDiv = document.createElement("div");
-document.body.append(spookyDiv);
+app.append(spookyDiv);
 
 const spookyCounter = document.createElement("p");
 spookyCounter.textContent = "Hauntings: 0";
@@ -21,7 +21,7 @@ let hauntingStart: number | undefined;
 
 const spookyButton = document.createElement("button");
 spookyButton.textContent = "👻";
-document.body.append(spookyButton);
+app.append(spookyButton);
 
 function haunting(ghostsAdded: number) {
   ghosts += ghostsAdded;
