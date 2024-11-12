@@ -30,13 +30,18 @@ buttonDiv.append(spookyButton);
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
 app.append(hauntingShopDiv);
 
-function hauntButton(upgrade: string, cost: number, multiplier: number): HTMLButtonElement {
+function hauntButton(
+  upgrade: string,
+  cost: number,
+  multiplier: number,
+): HTMLButtonElement {
   const hauntUpgrade: HTMLButtonElement = document.createElement("button");
   hauntUpgrade.textContent = upgrade;
   hauntUpgrade.onclick = () => {
     if (ghosts >= cost) {
       hauntMultiplier += multiplier;
-      multiplierCounter.textContent = "Ghost Multiplier: ${hauntMultiplier.toFixed(2)}";
+      multiplierCounter.textContent =
+        `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
       ghosts -= cost;
     }
   };
@@ -53,13 +58,25 @@ const upgradeAMultiplier: number = 0.1;
 const upgradeBMultiplier: number = 2.0;
 const upgradeCMultiplier: number = 50.0;
 
-const hauntUpgradeA: HTMLButtonElement = hauntButton("Upgrade A", upgradeACost, upgradeAMultiplier);
+const hauntUpgradeA: HTMLButtonElement = hauntButton(
+  "Upgrade A",
+  upgradeACost,
+  upgradeAMultiplier,
+);
 hauntingShopDiv.append(hauntUpgradeA);
 
-const hauntUpgradeB: HTMLButtonElement = hauntButton("Upgrade B", upgradeBCost, upgradeBMultiplier);
+const hauntUpgradeB: HTMLButtonElement = hauntButton(
+  "Upgrade B",
+  upgradeBCost,
+  upgradeBMultiplier,
+);
 hauntingShopDiv.append(hauntUpgradeB);
 
-const hauntUpgradeC: HTMLButtonElement = hauntButton("Upgrade C", upgradeCCost, upgradeCMultiplier);
+const hauntUpgradeC: HTMLButtonElement = hauntButton(
+  "Upgrade C",
+  upgradeCCost,
+  upgradeCMultiplier,
+);
 hauntingShopDiv.append(hauntUpgradeC);
 
 function haunting(ghostsAdded: number): void {
