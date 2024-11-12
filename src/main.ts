@@ -26,20 +26,49 @@ buttonDiv.append(spookyButton);
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
 app.append(hauntingShopDiv);
 
-const hauntMultiplierUpgrade: HTMLButtonElement =
+const hauntUpgradeA: HTMLButtonElement =
   document.createElement("button");
-hauntMultiplierUpgrade.textContent = "Increment Haunt Multiplier";
-hauntingShopDiv.append(hauntMultiplierUpgrade);
+  hauntUpgradeA.textContent = "Increment Haunt Multiplier";
+hauntingShopDiv.append(hauntUpgradeA);
+
+const hauntUpgradeB: HTMLButtonElement =
+  document.createElement("button");
+  hauntUpgradeB.textContent = "Increment Haunt Multiplier";
+hauntingShopDiv.append(hauntUpgradeB);
+
+const hauntUpgradeC: HTMLButtonElement =
+  document.createElement("button");
+  hauntUpgradeC.textContent = "Increment Haunt Multiplier";
+hauntingShopDiv.append(hauntUpgradeC);
 
 let ghosts: number = 0;
 let hauntingStart: number | undefined;
 let hauntMultiplier: number = 0;
-const hauntMultiplierCost: number = 10;
+const upgradeACost: number = 10;
+const upgradeBCost: number = 100;
+const upgradeCCost: number = 1000;
+const upgradeAMultiplier: number = 0.1;
+const upgradeBMultiplier: number = 2.0;
+const upgradeCMultiplier: number = 50.0;
 
-hauntMultiplierUpgrade.onclick = () => {
-  if (ghosts >= hauntMultiplierCost) {
-    hauntMultiplier++;
-    ghosts -= hauntMultiplierCost;
+hauntUpgradeA.onclick = () => {
+  if (ghosts >= upgradeACost) {
+    hauntMultiplier += upgradeAMultiplier;
+    ghosts -= upgradeACost;
+  }
+};
+
+hauntUpgradeB.onclick = () => {
+  if (ghosts >= upgradeBCost) {
+    hauntMultiplier += upgradeBMultiplier;
+    ghosts -= upgradeBCost;
+  }
+};
+
+hauntUpgradeC.onclick = () => {
+  if (ghosts >= upgradeCCost) {
+    hauntMultiplier += upgradeCMultiplier;
+    ghosts -= upgradeCCost;
   }
 };
 
@@ -55,10 +84,20 @@ function continuousHaunting(): void {
   const hauntCount: number = (performance.now() - hauntingStart) / 1000;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
-  if (ghosts >= hauntMultiplierCost) {
-    hauntMultiplierUpgrade.disabled = false;
+  if (ghosts >= upgradeACost) {
+    hauntUpgradeA.disabled = false;
   } else {
-    hauntMultiplierUpgrade.disabled = true;
+    hauntUpgradeA.disabled = true;
+  }
+  if (ghosts >= upgradeBCost) {
+    hauntUpgradeB.disabled = false;
+  } else {
+    hauntUpgradeB.disabled = true;
+  }
+  if (ghosts >= upgradeCCost) {
+    hauntUpgradeC.disabled = false;
+  } else {
+    hauntUpgradeC.disabled = true;
   }
   requestAnimationFrame(continuousHaunting);
 }
