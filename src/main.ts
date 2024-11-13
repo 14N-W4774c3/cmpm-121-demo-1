@@ -13,11 +13,11 @@ const spookyDiv: HTMLDivElement = document.createElement("div");
 app.append(spookyDiv);
 
 const spookyCounter: HTMLParagraphElement = document.createElement("p");
-spookyCounter.textContent = "Hauntings: 0";
+spookyCounter.textContent = "People Scared: 0";
 spookyDiv.append(spookyCounter);
 
 const multiplierCounter: HTMLParagraphElement = document.createElement("p");
-multiplierCounter.textContent = "Ghost Multiplier: 0";
+multiplierCounter.textContent = "Spookosity: 0";
 spookyDiv.append(multiplierCounter);
 
 const buttonDiv: HTMLDivElement = document.createElement("div");
@@ -31,15 +31,15 @@ const hauntingShopDiv: HTMLDivElement = document.createElement("div");
 app.append(hauntingShopDiv);
 
 const upgradeA: HTMLButtonElement = document.createElement("button");
-upgradeA.textContent = "Upgrade A";
+upgradeA.textContent = "Practice haunting";
 app.append(upgradeA);
 
 const upgradeB: HTMLButtonElement = document.createElement("button");
-upgradeB.textContent = "Upgrade B";
+upgradeB.textContent = "Recruit another ghost";
 app.append(upgradeB);
 
 const upgradeC: HTMLButtonElement = document.createElement("button");
-upgradeC.textContent = "Upgrade C";
+upgradeC.textContent = "Call a demon straight from hell";
 app.append(upgradeC);
 
 let ghosts: number = 0;
