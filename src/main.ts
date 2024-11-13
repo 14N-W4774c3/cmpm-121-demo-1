@@ -30,6 +30,20 @@ buttonDiv.append(spookyButton);
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
 app.append(hauntingShopDiv);
 
+/*
+interface Item {
+  name: string;
+  cost: number;
+  rate: number;
+}
+
+const availableItems: Item[] = [
+  { name: "Practice haunting", cost: 10, rate: 0.1 },
+  { name: "Recruit another ghost", cost: 100, rate: 2.0 },
+  { name: "Call a demon straight from hell", cost: 1000, rate: 50.0 },
+];
+*/
+
 const upgradeA: HTMLButtonElement = document.createElement("button");
 upgradeA.textContent = "Practice haunting";
 app.append(upgradeA);
