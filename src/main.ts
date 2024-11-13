@@ -51,13 +51,12 @@ let upgradeCCost: number = 1000;
 const upgradeAMultiplier: number = 0.1;
 const upgradeBMultiplier: number = 2.0;
 const upgradeCMultiplier: number = 50.0;
-const costMultiplier: number = 0.15;
+const costMultiplier: number = 1.15;
 
 upgradeA.onclick = () => {
   if (ghosts >= upgradeACost) {
     hauntMultiplier += upgradeAMultiplier;
-    multiplierCounter.textContent =
-      `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
+    multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
     ghosts -= upgradeACost;
     upgradeACost *= costMultiplier;
   }
@@ -66,8 +65,7 @@ upgradeA.onclick = () => {
 upgradeB.onclick = () => {
   if (ghosts >= upgradeBCost) {
     hauntMultiplier += upgradeBMultiplier;
-    multiplierCounter.textContent =
-      `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
+    multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
     ghosts -= upgradeBCost;
     upgradeBCost *= costMultiplier;
   }
@@ -76,8 +74,7 @@ upgradeB.onclick = () => {
 upgradeC.onclick = () => {
   if (ghosts >= upgradeCCost) {
     hauntMultiplier += upgradeCMultiplier;
-    multiplierCounter.textContent =
-      `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
+    multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
     ghosts -= upgradeCCost;
     upgradeCCost *= costMultiplier;
   }
