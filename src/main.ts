@@ -48,16 +48,12 @@ for (const item of availableItems) {
   hauntingShopDiv.append(upgrade);
 }
 
-const upgradeButtons: NodeListOf<HTMLButtonElement> =
-  document.querySelectorAll("button");
-
+let ghosts: number = 0;
+let hauntingStart: number | undefined;
+let hauntMultiplier: number = 0;
+const costMultiplier: number = 1.15;
+const upgradeButtons: HTMLCollectionOf<HTMLButtonElement> = hauntingShopDiv.getElementsByTagName("button");
 const upgradeButtonsArray: HTMLButtonElement[] = Array.from(upgradeButtons);
-upgradeButtonsArray.forEach((button, index) => {
-  if (button.textContent === "👻") {
-    upgradeButtonsArray.splice(index, 1);
-  }
-}
-);
 
 upgradeButtonsArray.forEach((button, index) => {
   button.onclick = () => {
@@ -71,8 +67,6 @@ upgradeButtonsArray.forEach((button, index) => {
   };
 });
 
-
-
 /*
 const upgradeA: HTMLButtonElement = document.createElement("button");
 upgradeA.textContent = "Practice haunting";
@@ -84,14 +78,8 @@ app.append(upgradeB);
 
 const upgradeC: HTMLButtonElement = document.createElement("button");
 upgradeC.textContent = "Call a demon straight from hell";
-app.append(upgradeC);*/
+app.append(upgradeC);
 
-let ghosts: number = 0;
-let hauntingStart: number | undefined;
-let hauntMultiplier: number = 0;
-const costMultiplier: number = 1.15;
-
-/*
 upgradeA.onclick = () => {
   if (ghosts >= upgradeACost) {
     hauntMultiplier += upgradeAMultiplier;
@@ -147,7 +135,7 @@ function continuousHaunting(): void {
   } else {
     upgradeB.disabled = true;
   }*/
-  upgradeButtons.forEach((button, index) => {
+    upgradeButtonsArray.forEach((button, index) => {
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
     } else {
