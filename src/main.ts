@@ -38,11 +38,37 @@ interface Item {
 }
 
 const availableItems: Item[] = [
-  { name: "Practice haunting", cost: 10, rate: 0.1, description: "Come up with more terrifying ideas than the Electoral College" },
-  { name: "Recruit another ghost", cost: 100, rate: 2.0, description: "Add another ghost to your haunting team" },
-  { name: "Call a demon straight from hell", cost: 1000, rate: 50.0, description: "All you gotta do is say their name" },
-  { name: "Have a swingin' wake", cost: 5000, rate: 300.0, description: "Invite all your ghost friends over for a party" },
-  { name: "Call in the giant snake", cost: 10000, rate: 1000.0, description: "Seriously though this is a game about death" },
+  {
+    name: "Practice haunting",
+    cost: 10,
+    rate: 0.1,
+    description:
+      "Come up with more terrifying ideas than the Electoral College",
+  },
+  {
+    name: "Recruit another ghost",
+    cost: 100,
+    rate: 2.0,
+    description: "Add another ghost to your haunting team",
+  },
+  {
+    name: "Call a demon straight from hell",
+    cost: 1000,
+    rate: 50.0,
+    description: "All you gotta do is say their name",
+  },
+  {
+    name: "Have a swingin' wake",
+    cost: 5000,
+    rate: 300.0,
+    description: "Invite all your ghost friends over for a party",
+  },
+  {
+    name: "Call in the giant snake",
+    cost: 10000,
+    rate: 1000.0,
+    description: "Seriously though this is a game about death",
+  },
 ];
 
 for (const item of availableItems) {
@@ -62,14 +88,14 @@ const upgradeButtonsArray: HTMLButtonElement[] = Array.from(upgradeButtons);
 upgradeButtonsArray.forEach((button, index) => {
   button.onmouseover = () => {
     button.title = availableItems[index].description;
-  }
+  };
   button.onclick = () => {
     if (ghosts >= availableItems[index].cost) {
       hauntMultiplier += availableItems[index].rate;
       multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
       ghosts -= availableItems[index].cost;
       availableItems[index].cost *= costMultiplier;
-      button.textContent = `${availableItems[index].name} - $${availableItems[index].cost}`;
+      button.textContent = `${availableItems[index].name} - ${availableItems[index].cost.toFixed(2)} people scared`;
     }
   };
 });
