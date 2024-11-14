@@ -30,7 +30,6 @@ buttonDiv.append(spookyButton);
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
 app.append(hauntingShopDiv);
 
-
 interface Item {
   name: string;
   cost: number;
@@ -49,9 +48,18 @@ for (const item of availableItems) {
   hauntingShopDiv.append(upgrade);
 }
 
-const upgradeButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll("button");
+const upgradeButtons: NodeListOf<HTMLButtonElement> =
+  document.querySelectorAll("button");
 
-upgradeButtons.forEach((button, index) => {
+const upgradeButtonsArray: HTMLButtonElement[] = Array.from(upgradeButtons);
+upgradeButtonsArray.forEach((button, index) => {
+  if (button.textContent === "👻") {
+    upgradeButtonsArray.splice(index, 1);
+  }
+}
+);
+
+upgradeButtonsArray.forEach((button, index) => {
   button.onclick = () => {
     if (ghosts >= availableItems[index].cost) {
       hauntMultiplier += availableItems[index].rate;
@@ -62,6 +70,7 @@ upgradeButtons.forEach((button, index) => {
     }
   };
 });
+
 
 
 /*
