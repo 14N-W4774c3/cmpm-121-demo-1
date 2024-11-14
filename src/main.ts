@@ -44,7 +44,7 @@ const availableItems: Item[] = [
 
 for (const item of availableItems) {
   const upgrade: HTMLButtonElement = document.createElement("button");
-  upgrade.textContent = `${item.name} - $${item.cost}`;
+  upgrade.textContent = `${item.name} - ${item.cost.toFixed(2)} people scared`;
   hauntingShopDiv.append(upgrade);
 }
 
@@ -52,7 +52,8 @@ let ghosts: number = 0;
 let hauntingStart: number | undefined;
 let hauntMultiplier: number = 0;
 const costMultiplier: number = 1.15;
-const upgradeButtons: HTMLCollectionOf<HTMLButtonElement> = hauntingShopDiv.getElementsByTagName("button");
+const upgradeButtons: HTMLCollectionOf<HTMLButtonElement> =
+  hauntingShopDiv.getElementsByTagName("button");
 const upgradeButtonsArray: HTMLButtonElement[] = Array.from(upgradeButtons);
 
 upgradeButtonsArray.forEach((button, index) => {
@@ -67,46 +68,6 @@ upgradeButtonsArray.forEach((button, index) => {
   };
 });
 
-/*
-const upgradeA: HTMLButtonElement = document.createElement("button");
-upgradeA.textContent = "Practice haunting";
-app.append(upgradeA);
-
-const upgradeB: HTMLButtonElement = document.createElement("button");
-upgradeB.textContent = "Recruit another ghost";
-app.append(upgradeB);
-
-const upgradeC: HTMLButtonElement = document.createElement("button");
-upgradeC.textContent = "Call a demon straight from hell";
-app.append(upgradeC);
-
-upgradeA.onclick = () => {
-  if (ghosts >= upgradeACost) {
-    hauntMultiplier += upgradeAMultiplier;
-    multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
-    ghosts -= upgradeACost;
-    upgradeACost *= costMultiplier;
-  }
-};
-
-upgradeB.onclick = () => {
-  if (ghosts >= upgradeBCost) {
-    hauntMultiplier += upgradeBMultiplier;
-    multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
-    ghosts -= upgradeBCost;
-    upgradeBCost *= costMultiplier;
-  }
-};
-
-upgradeC.onclick = () => {
-  if (ghosts >= upgradeCCost) {
-    hauntMultiplier += upgradeCMultiplier;
-    multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
-    ghosts -= upgradeCCost;
-    upgradeCCost *= costMultiplier;
-  }
-};*/
-
 function haunting(ghostsAdded: number): void {
   ghosts += ghostsAdded;
   spookyCounter.textContent = `Hauntings: ${ghosts.toFixed(2)}`;
@@ -119,23 +80,7 @@ function continuousHaunting(): void {
   const hauntCount: number = (performance.now() - hauntingStart) / 1000;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
-  /*
-  if (ghosts >= upgradeACost) {
-    upgradeA.disabled = false;
-  } else {
-    upgradeA.disabled = true;
-  }
-  if (ghosts >= upgradeBCost) {
-    upgradeB.disabled = false;
-  } else {
-    upgradeB.disabled = true;
-  }
-  if (ghosts >= upgradeCCost) {
-    upgradeB.disabled = false;
-  } else {
-    upgradeB.disabled = true;
-  }*/
-    upgradeButtonsArray.forEach((button, index) => {
+  upgradeButtonsArray.forEach((button, index) => {
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
     } else {
