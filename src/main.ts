@@ -30,7 +30,7 @@ buttonDiv.append(spookyButton);
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
 app.append(hauntingShopDiv);
 
-/*
+
 interface Item {
   name: string;
   cost: number;
@@ -42,8 +42,29 @@ const availableItems: Item[] = [
   { name: "Recruit another ghost", cost: 100, rate: 2.0 },
   { name: "Call a demon straight from hell", cost: 1000, rate: 50.0 },
 ];
-*/
 
+for (const item of availableItems) {
+  const upgrade: HTMLButtonElement = document.createElement("button");
+  upgrade.textContent = `${item.name} - $${item.cost}`;
+  hauntingShopDiv.append(upgrade);
+}
+
+const upgradeButtons: NodeListOf<HTMLButtonElement> = document.querySelectorAll("button");
+
+upgradeButtons.forEach((button, index) => {
+  button.onclick = () => {
+    if (ghosts >= availableItems[index].cost) {
+      hauntMultiplier += availableItems[index].rate;
+      multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
+      ghosts -= availableItems[index].cost;
+      availableItems[index].cost *= costMultiplier;
+      button.textContent = `${availableItems[index].name} - $${availableItems[index].cost}`;
+    }
+  };
+});
+
+
+/*
 const upgradeA: HTMLButtonElement = document.createElement("button");
 upgradeA.textContent = "Practice haunting";
 app.append(upgradeA);
@@ -54,19 +75,14 @@ app.append(upgradeB);
 
 const upgradeC: HTMLButtonElement = document.createElement("button");
 upgradeC.textContent = "Call a demon straight from hell";
-app.append(upgradeC);
+app.append(upgradeC);*/
 
 let ghosts: number = 0;
 let hauntingStart: number | undefined;
 let hauntMultiplier: number = 0;
-let upgradeACost: number = 10;
-let upgradeBCost: number = 100;
-let upgradeCCost: number = 1000;
-const upgradeAMultiplier: number = 0.1;
-const upgradeBMultiplier: number = 2.0;
-const upgradeCMultiplier: number = 50.0;
 const costMultiplier: number = 1.15;
 
+/*
 upgradeA.onclick = () => {
   if (ghosts >= upgradeACost) {
     hauntMultiplier += upgradeAMultiplier;
@@ -92,7 +108,7 @@ upgradeC.onclick = () => {
     ghosts -= upgradeCCost;
     upgradeCCost *= costMultiplier;
   }
-};
+};*/
 
 function haunting(ghostsAdded: number): void {
   ghosts += ghostsAdded;
@@ -106,6 +122,7 @@ function continuousHaunting(): void {
   const hauntCount: number = (performance.now() - hauntingStart) / 1000;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
+  /*
   if (ghosts >= upgradeACost) {
     upgradeA.disabled = false;
   } else {
@@ -120,7 +137,14 @@ function continuousHaunting(): void {
     upgradeB.disabled = false;
   } else {
     upgradeB.disabled = true;
-  }
+  }*/
+  upgradeButtons.forEach((button, index) => {
+    if (ghosts >= availableItems[index].cost) {
+      button.disabled = false;
+    } else {
+      button.disabled = true;
+    }
+  });
   requestAnimationFrame(continuousHaunting);
 }
 
