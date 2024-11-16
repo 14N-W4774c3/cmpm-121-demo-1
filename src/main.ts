@@ -29,7 +29,6 @@ spookyClickerButton.textContent = "👻";
 buttonDiv.append(spookyClickerButton);
 
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
-//hauntingShopDiv.classList.add("haunting-shop");
 app.append(hauntingShopDiv);
 
 let ghosts: number = 0;
