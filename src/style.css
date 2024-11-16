@@ -25,6 +25,7 @@ a:hover {
 
 body {
   margin: 0;
+  background-color: #242424;
   background-image: "src/stripes.png";
   display: flex;
   place-items: center;
