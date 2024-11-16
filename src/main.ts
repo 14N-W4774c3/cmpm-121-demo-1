@@ -32,6 +32,9 @@ const hauntingShopDiv: HTMLDivElement = document.createElement("div");
 hauntingShopDiv.classList.add("haunting-shop");
 app.append(hauntingShopDiv);
 
+const hauntingShopTable: HTMLTableElement = document.createElement("table");
+hauntingShopDiv.append(hauntingShopTable);
+
 let ghosts: number = 0;
 let hauntingStart: number | undefined;
 let hauntMultiplier: number = 0;
@@ -84,10 +87,22 @@ const availableItems: Item[] = [
   },
 ];
 
+const itemStates = availableItems.map((item) => ({
+  clicks: 0,
+  price: item.cost,
+}));
+
 for (const item of availableItems) {
+  const upgradeRow: HTMLTableRowElement = document.createElement("tr");
+  const upgradeValue: HTMLTableCellElement = document.createElement("td");
+  upgradeValue.textContent = `${item.name}: ${itemStates[availableItems.indexOf(item)].clicks} purchased`;
+  const upgradeHolder: HTMLTableCellElement = document.createElement("td");
   const upgrade: HTMLButtonElement = document.createElement("button");
   upgrade.textContent = `${item.name} - ${item.cost.toFixed(precision)} people scared`;
-  hauntingShopDiv.append(upgrade);
+  hauntingShopDiv.append(upgradeRow);
+  upgradeRow.append(upgradeValue);
+  upgradeRow.append(upgradeHolder);
+  upgradeHolder.append(upgrade);
 }
 
 upgradeButtonsArray.forEach((button, index) => {
@@ -95,12 +110,14 @@ upgradeButtonsArray.forEach((button, index) => {
     button.title = availableItems[index].description;
   };
   button.onclick = () => {
-    if (ghosts >= availableItems[index].cost) {
+    if (ghosts >= itemStates[index].price) {
       hauntMultiplier += availableItems[index].rate;
       multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(precision)}`;
-      ghosts -= availableItems[index].cost;
-      availableItems[index].cost *= costMultiplier;
-      button.textContent = `${availableItems[index].name} - ${availableItems[index].cost.toFixed(precision)} people scared`;
+      ghosts -= itemStates[index].price;
+      itemStates[index].price *= costMultiplier;
+      button.textContent = `${availableItems[index].name} - ${itemStates[index].price.toFixed(precision)} people scared`;
+      itemStates[index].clicks++;
+      upgradeButtonsArray[index].parentElement!.previousElementSibling!.textContent = `${availableItems[index].name}: ${itemStates[index].clicks} purchased`;
     }
   };
 });
@@ -110,23 +127,27 @@ function haunting(ghostsAdded: number): void {
   scoreCounter.textContent = `Hauntings: ${ghosts.toFixed(precision)}`;
 }
 
+function checkAvailability(): void {
+  upgradeButtonsArray.forEach((button: HTMLButtonElement, index: number) => {
+    button.disabled = ghosts < itemStates[index].price;
+  });
+}
+
+function continuousGrowth(): void {
+  if (hauntingStart === undefined) {
+    hauntingStart = performance.now();
+  }
+  const hauntCount: number =
+    (performance.now() - hauntingStart) / millisecondsPerSecond;
+  hauntingStart = performance.now();
+  haunting(hauntCount * hauntMultiplier);
+}
+
 function continuousHaunting(): void {
   if (hauntMultiplier > 0) {
-    if (hauntingStart === undefined) {
-      hauntingStart = performance.now();
-    }
-    const hauntCount: number =
-      (performance.now() - hauntingStart) / millisecondsPerSecond;
-    hauntingStart = performance.now();
-    haunting(hauntCount * hauntMultiplier);
+    continuousGrowth()
   }
-  upgradeButtonsArray.forEach((button: HTMLButtonElement, index: number) => {
-    if (ghosts >= availableItems[index].cost) {
-      button.disabled = false;
-    } else {
-      button.disabled = true;
-    }
-  });
+  checkAvailability();
   requestAnimationFrame(continuousHaunting);
 }
 
