@@ -87,6 +87,8 @@ const availableItems: Item[] = [
 for (const item of availableItems) {
   const upgrade: HTMLButtonElement = document.createElement("button");
   upgrade.textContent = `${item.name} - ${item.cost.toFixed(precision)} people scared`;
+  console.assert(upgrade instanceof HTMLButtonElement);
+  console.assert(upgrade.disabled !== false);
   hauntingShopDiv.append(upgrade);
 }
 
@@ -119,10 +121,13 @@ function continuousHaunting(): void {
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
   upgradeButtonsArray.forEach((button: HTMLButtonElement, index: number) => {
+    console.assert(availableItems[index].cost >= 0);
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
+      console.log("button enabled");
     } else {
       button.disabled = true;
+      console.log("button disabled");
     }
   });
   requestAnimationFrame(continuousHaunting);
