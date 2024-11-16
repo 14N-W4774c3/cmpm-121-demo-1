@@ -111,21 +111,23 @@ function haunting(ghostsAdded: number): void {
 }
 
 function continuousHaunting(): void {
-  if (hauntingStart === undefined) {
+  if (hauntMultiplier > 0) {
+    if (hauntingStart === undefined) {
+      hauntingStart = performance.now();
+    }
+    const hauntCount: number =
+      (performance.now() - hauntingStart) / millisecondsPerSecond;
     hauntingStart = performance.now();
+    haunting(hauntCount * hauntMultiplier);
   }
-  const hauntCount: number =
-    (performance.now() - hauntingStart) / millisecondsPerSecond;
-  hauntingStart = performance.now();
-  haunting(hauntCount * hauntMultiplier);
   upgradeButtonsArray.forEach((button: HTMLButtonElement, index: number) => {
-    console.assert(availableItems[index].cost >= 0);
+    console.assert(availableItems[index].cost !== undefined);
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
-      console.log("button enabled");
+      console.assert(button.disabled === false);
     } else {
       button.disabled = true;
-      console.log("button disabled");
+      console.assert(button.disabled === true);
     }
   });
   requestAnimationFrame(continuousHaunting);
