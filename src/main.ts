@@ -121,13 +121,10 @@ function continuousHaunting(): void {
     haunting(hauntCount * hauntMultiplier);
   }
   upgradeButtonsArray.forEach((button: HTMLButtonElement, index: number) => {
-    console.assert(availableItems[index].cost !== undefined);
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
-      console.assert(button.disabled === false);
     } else {
       button.disabled = true;
-      console.assert(button.disabled === true);
     }
   });
   requestAnimationFrame(continuousHaunting);

@@ -6,6 +6,7 @@
   color-scheme: light dark;
   color: rgba(85, 126, 69, 0.87);
   background-color: #242424;
+  background: url("stripes.png") repeat;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,8 +26,6 @@ a:hover {
 
 body {
   margin: 0;
-  background-color: #242424;
-  background-image: "./stripes.png";
   display: flex;
   place-items: center;
   min-width: 320px;
