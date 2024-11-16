@@ -4,14 +4,14 @@ const app: HTMLDivElement = document.querySelector("#app")!;
 
 const gameTitle = "Happy Haunts Clicker";
 document.title = gameTitle;
-document.body.style.background = "url('src/stripes.png')";
+document.body.style.backgroundImage = "url('src/stripes.png')";
 
 const header: HTMLHeadingElement = document.createElement("h1");
 header.innerHTML = gameTitle;
 app.append(header);
 
 const gameScoreDiv: HTMLDivElement = document.createElement("div");
-gameScoreDiv.style.backgroundColor = "Gray";
+gameScoreDiv.style.backgroundColor = "DarkSlateGray";
 app.append(gameScoreDiv);
 
 const scoreCounter: HTMLParagraphElement = document.createElement("p");
@@ -30,7 +30,12 @@ spookyClickerButton.textContent = "👻";
 buttonDiv.append(spookyClickerButton);
 
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
-hauntingShopDiv.style.backgroundColor = "Gray";
+hauntingShopDiv.style.backgroundColor = "DarkSlateGray";
+hauntingShopDiv.style.borderRadius = "10px";
+hauntingShopDiv.style.position = "absolute";
+hauntingShopDiv.style.top = "20px";
+hauntingShopDiv.style.right = "20px";
+hauntingShopDiv.style.width = "200px";
 app.append(hauntingShopDiv);
 
 let ghosts: number = 0;
@@ -125,7 +130,8 @@ function continuousHaunting(): void {
   if (hauntingStart === undefined) {
     hauntingStart = performance.now();
   }
-  const hauntCount: number = (performance.now() - hauntingStart) / millisecondsPerSecond;
+  const hauntCount: number =
+    (performance.now() - hauntingStart) / millisecondsPerSecond;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
   checkUpgradeAvailability();
