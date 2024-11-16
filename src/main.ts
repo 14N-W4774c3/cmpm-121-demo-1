@@ -4,7 +4,7 @@ const app: HTMLDivElement = document.querySelector("#app")!;
 
 const gameTitle = "Happy Haunts Clicker";
 document.title = gameTitle;
-document.body.style.backgroundImage = "url('src/stripes.png')";
+document.body.style.backgroundImage = "url('stripes.png')";
 
 const header: HTMLHeadingElement = document.createElement("h1");
 header.innerHTML = gameTitle;
@@ -12,6 +12,7 @@ app.append(header);
 
 const gameScoreDiv: HTMLDivElement = document.createElement("div");
 gameScoreDiv.style.backgroundColor = "DarkSlateGray";
+gameScoreDiv.style.borderRadius = "10px";
 app.append(gameScoreDiv);
 
 const scoreCounter: HTMLParagraphElement = document.createElement("p");
@@ -116,8 +117,8 @@ function haunting(ghostsAdded: number): void {
   scoreCounter.textContent = `Hauntings: ${ghosts.toFixed(precision)}`;
 }
 
-function checkUpgradeAvailability(): void {
-  upgradeButtonsArray.forEach((button, index) => {
+function checkUpgradeAvailability(upgradesArray: HTMLButtonElement[]): void {
+  upgradesArray.forEach((button, index) => {
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
     } else {
@@ -134,7 +135,7 @@ function continuousHaunting(): void {
     (performance.now() - hauntingStart) / millisecondsPerSecond;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
-  checkUpgradeAvailability();
+  checkUpgradeAvailability(upgradeButtonsArray);
   requestAnimationFrame(continuousHaunting);
 }
 
