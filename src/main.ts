@@ -118,15 +118,6 @@ function haunting(ghostsAdded: number): void {
   scoreCounter.textContent = `Hauntings: ${ghosts.toFixed(precision)}`;
 }
 
-function checkUpgradeAvailability(upgrade: HTMLButtonElement, index: number): void {
-  if (ghosts >= availableItems[index].cost) {
-    upgrade.disabled = false;
-  } else {
-    upgrade.disabled = true;
-  }
-}
-
-
 function continuousHaunting(): void {
   if (hauntingStart === undefined) {
     hauntingStart = performance.now();
@@ -136,7 +127,11 @@ function continuousHaunting(): void {
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
   upgradeButtonsArray.forEach((button, index) => {
-    checkUpgradeAvailability(button, index);
+    if (ghosts >= availableItems[index].cost) {
+      button.disabled = false;
+    } else {
+      button.disabled = true;
+    }
   });
   requestAnimationFrame(continuousHaunting);
 }
