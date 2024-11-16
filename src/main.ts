@@ -2,14 +2,16 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameTitle = "My spooky game";
+const gameTitle = "Happy Haunts Clicker";
 document.title = gameTitle;
+document.body.style.background = "url('src/stripes.png')";
 
 const header: HTMLHeadingElement = document.createElement("h1");
 header.innerHTML = gameTitle;
 app.append(header);
 
 const gameScoreDiv: HTMLDivElement = document.createElement("div");
+gameScoreDiv.style.backgroundColor = "Gray";
 app.append(gameScoreDiv);
 
 const scoreCounter: HTMLParagraphElement = document.createElement("p");
@@ -28,6 +30,7 @@ spookyClickerButton.textContent = "👻";
 buttonDiv.append(spookyClickerButton);
 
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
+hauntingShopDiv.style.backgroundColor = "Gray";
 app.append(hauntingShopDiv);
 
 let ghosts: number = 0;
