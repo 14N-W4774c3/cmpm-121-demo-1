@@ -117,7 +117,10 @@ upgradeButtonsArray.forEach((button, index) => {
       itemStates[index].price *= costMultiplier;
       button.textContent = `${availableItems[index].name} - ${itemStates[index].price.toFixed(precision)} people scared`;
       itemStates[index].clicks++;
-      upgradeButtonsArray[index].parentElement!.previousElementSibling!.textContent = `${availableItems[index].name}: ${itemStates[index].clicks} purchased`;
+      upgradeButtonsArray[
+        index
+      ].parentElement!.previousElementSibling!.textContent =
+        `${availableItems[index].name}: ${itemStates[index].clicks} purchased`;
     }
   };
 });
@@ -145,7 +148,7 @@ function continuousGrowth(): void {
 
 function continuousHaunting(): void {
   if (hauntMultiplier > 0) {
-    continuousGrowth()
+    continuousGrowth();
   }
   checkAvailability();
   requestAnimationFrame(continuousHaunting);
