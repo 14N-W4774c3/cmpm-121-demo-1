@@ -37,6 +37,7 @@ hauntingShopDiv.style.position = "absolute";
 hauntingShopDiv.style.top = "20px";
 hauntingShopDiv.style.right = "20px";
 hauntingShopDiv.style.width = "200px";
+hauntingShopDiv.style.padding = "10px";
 app.append(hauntingShopDiv);
 
 let ghosts: number = 0;
@@ -117,15 +118,14 @@ function haunting(ghostsAdded: number): void {
   scoreCounter.textContent = `Hauntings: ${ghosts.toFixed(precision)}`;
 }
 
-function checkUpgradeAvailability(upgradesArray: HTMLButtonElement[]): void {
-  upgradesArray.forEach((button, index) => {
-    if (ghosts >= availableItems[index].cost) {
-      button.disabled = false;
-    } else {
-      button.disabled = true;
-    }
-  });
+function checkUpgradeAvailability(upgrade: HTMLButtonElement, index: number): void {
+  if (ghosts >= availableItems[index].cost) {
+    upgrade.disabled = false;
+  } else {
+    upgrade.disabled = true;
+  }
 }
+
 
 function continuousHaunting(): void {
   if (hauntingStart === undefined) {
@@ -135,7 +135,9 @@ function continuousHaunting(): void {
     (performance.now() - hauntingStart) / millisecondsPerSecond;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
-  checkUpgradeAvailability(upgradeButtonsArray);
+  upgradeButtonsArray.forEach((button, index) => {
+    checkUpgradeAvailability(button, index);
+  });
   requestAnimationFrame(continuousHaunting);
 }
 
