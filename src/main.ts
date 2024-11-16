@@ -2,33 +2,44 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "My spooky game";
-document.title = gameName;
+const gameTitle = "My spooky game";
+document.title = gameTitle;
 
 const header: HTMLHeadingElement = document.createElement("h1");
-header.innerHTML = gameName;
+header.innerHTML = gameTitle;
 app.append(header);
 
-const spookyDiv: HTMLDivElement = document.createElement("div");
-app.append(spookyDiv);
+const gameScoreDiv: HTMLDivElement = document.createElement("div");
+app.append(gameScoreDiv);
 
-const spookyCounter: HTMLParagraphElement = document.createElement("p");
-spookyCounter.textContent = "People Scared: 0";
-spookyDiv.append(spookyCounter);
+const scoreCounter: HTMLParagraphElement = document.createElement("p");
+scoreCounter.textContent = "People Scared: 0";
+gameScoreDiv.append(scoreCounter);
 
 const multiplierCounter: HTMLParagraphElement = document.createElement("p");
 multiplierCounter.textContent = "Spookosity: 0";
-spookyDiv.append(multiplierCounter);
+gameScoreDiv.append(multiplierCounter);
 
 const buttonDiv: HTMLDivElement = document.createElement("div");
 app.append(buttonDiv);
 
-const spookyButton: HTMLButtonElement = document.createElement("button");
-spookyButton.textContent = "👻";
-buttonDiv.append(spookyButton);
+const spookyClickerButton: HTMLButtonElement = document.createElement("button");
+spookyClickerButton.textContent = "👻";
+buttonDiv.append(spookyClickerButton);
 
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
 app.append(hauntingShopDiv);
+
+let ghosts: number = 0;
+let hauntingStart: number | undefined;
+let hauntMultiplier: number = 0;
+const clickPower: number = 1;
+const precision: number = 2;
+const costMultiplier: number = 1.15;
+const millisecondsPerSecond: number = 1000;
+const upgradeButtons: HTMLCollectionOf<HTMLButtonElement> =
+  hauntingShopDiv.getElementsByTagName("button");
+const upgradeButtonsArray: HTMLButtonElement[] = Array.from(upgradeButtons);
 
 interface Item {
   name: string;
@@ -73,17 +84,9 @@ const availableItems: Item[] = [
 
 for (const item of availableItems) {
   const upgrade: HTMLButtonElement = document.createElement("button");
-  upgrade.textContent = `${item.name} - ${item.cost.toFixed(2)} people scared`;
+  upgrade.textContent = `${item.name} - ${item.cost.toFixed(precision)} people scared`;
   hauntingShopDiv.append(upgrade);
 }
-
-let ghosts: number = 0;
-let hauntingStart: number | undefined;
-let hauntMultiplier: number = 0;
-const costMultiplier: number = 1.15;
-const upgradeButtons: HTMLCollectionOf<HTMLButtonElement> =
-  hauntingShopDiv.getElementsByTagName("button");
-const upgradeButtonsArray: HTMLButtonElement[] = Array.from(upgradeButtons);
 
 upgradeButtonsArray.forEach((button, index) => {
   button.onmouseover = () => {
@@ -92,26 +95,20 @@ upgradeButtonsArray.forEach((button, index) => {
   button.onclick = () => {
     if (ghosts >= availableItems[index].cost) {
       hauntMultiplier += availableItems[index].rate;
-      multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(2)}`;
+      multiplierCounter.textContent = `Ghost Multiplier: ${hauntMultiplier.toFixed(precision)}`;
       ghosts -= availableItems[index].cost;
       availableItems[index].cost *= costMultiplier;
-      button.textContent = `${availableItems[index].name} - ${availableItems[index].cost.toFixed(2)} people scared`;
+      button.textContent = `${availableItems[index].name} - ${availableItems[index].cost.toFixed(precision)} people scared`;
     }
   };
 });
 
 function haunting(ghostsAdded: number): void {
   ghosts += ghostsAdded;
-  spookyCounter.textContent = `Hauntings: ${ghosts.toFixed(2)}`;
+  scoreCounter.textContent = `Hauntings: ${ghosts.toFixed(precision)}`;
 }
 
-function continuousHaunting(): void {
-  if (hauntingStart === undefined) {
-    hauntingStart = performance.now();
-  }
-  const hauntCount: number = (performance.now() - hauntingStart) / 1000;
-  hauntingStart = performance.now();
-  haunting(hauntCount * hauntMultiplier);
+function checkUpgradeAvailability(): void {
   upgradeButtonsArray.forEach((button, index) => {
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
@@ -119,11 +116,21 @@ function continuousHaunting(): void {
       button.disabled = true;
     }
   });
+}
+
+function continuousHaunting(): void {
+  if (hauntingStart === undefined) {
+    hauntingStart = performance.now();
+  }
+  const hauntCount: number = (performance.now() - hauntingStart) / millisecondsPerSecond;
+  hauntingStart = performance.now();
+  haunting(hauntCount * hauntMultiplier);
+  checkUpgradeAvailability();
   requestAnimationFrame(continuousHaunting);
 }
 
-spookyButton.onclick = () => {
-  haunting(1);
+spookyClickerButton.onclick = () => {
+  haunting(clickPower);
 };
 
 requestAnimationFrame(continuousHaunting);
