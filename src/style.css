@@ -25,6 +25,7 @@ a:hover {
 
 body {
   margin: 0;
+  background-image: 'stripes.png';
   display: flex;
   place-items: center;
   min-width: 320px;
@@ -73,4 +74,19 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.haunting-shop {
+  background-color: DarkSlateGray;
+  border-radius: 10px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 200px;
+  padding: 10px;
+}
+
+.game-score {
+background-color: DarkSlateGray;
+border-radius: 10px;
 }

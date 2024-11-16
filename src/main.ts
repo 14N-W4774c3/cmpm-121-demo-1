@@ -4,15 +4,13 @@ const app: HTMLDivElement = document.querySelector("#app")!;
 
 const gameTitle = "Happy Haunts Clicker";
 document.title = gameTitle;
-document.body.style.backgroundImage = "url('stripes.png')";
 
 const header: HTMLHeadingElement = document.createElement("h1");
 header.innerHTML = gameTitle;
 app.append(header);
 
 const gameScoreDiv: HTMLDivElement = document.createElement("div");
-gameScoreDiv.style.backgroundColor = "DarkSlateGray";
-gameScoreDiv.style.borderRadius = "10px";
+gameScoreDiv.classList.add("game-score");
 app.append(gameScoreDiv);
 
 const scoreCounter: HTMLParagraphElement = document.createElement("p");
@@ -31,13 +29,7 @@ spookyClickerButton.textContent = "👻";
 buttonDiv.append(spookyClickerButton);
 
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
-hauntingShopDiv.style.backgroundColor = "DarkSlateGray";
-hauntingShopDiv.style.borderRadius = "10px";
-hauntingShopDiv.style.position = "absolute";
-hauntingShopDiv.style.top = "20px";
-hauntingShopDiv.style.right = "20px";
-hauntingShopDiv.style.width = "200px";
-hauntingShopDiv.style.padding = "10px";
+hauntingShopDiv.classList.add("haunting-shop");
 app.append(hauntingShopDiv);
 
 let ghosts: number = 0;
@@ -130,6 +122,7 @@ function continuousHaunting(): void {
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
     } else {
+      console.log("have ${ghosts}, need ${availableItems[index].cost}");
       button.disabled = true;
     }
   });
