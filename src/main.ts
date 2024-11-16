@@ -86,6 +86,7 @@ const availableItems: Item[] = [
 for (const item of availableItems) {
   const upgrade: HTMLButtonElement = document.createElement("button");
   upgrade.textContent = `${item.name} - ${item.cost.toFixed(precision)} people scared`;
+  upgrade.disabled = false;
   hauntingShopDiv.append(upgrade);
 }
 
