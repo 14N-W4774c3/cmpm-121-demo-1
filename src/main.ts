@@ -29,7 +29,7 @@ spookyClickerButton.textContent = "👻";
 buttonDiv.append(spookyClickerButton);
 
 const hauntingShopDiv: HTMLDivElement = document.createElement("div");
-hauntingShopDiv.classList.add("haunting-shop");
+//hauntingShopDiv.classList.add("haunting-shop");
 app.append(hauntingShopDiv);
 
 let ghosts: number = 0;
@@ -38,7 +38,7 @@ let hauntMultiplier: number = 0;
 const clickPower: number = 1;
 const precision: number = 2;
 const costMultiplier: number = 1.15;
-//const millisecondsPerSecond: number = 1000;
+const millisecondsPerSecond: number = 1000;
 const upgradeButtons: HTMLCollectionOf<HTMLButtonElement> =
   hauntingShopDiv.getElementsByTagName("button");
 const upgradeButtonsArray: HTMLButtonElement[] = Array.from(upgradeButtons);
@@ -114,7 +114,7 @@ function continuousHaunting(): void {
   if (hauntingStart === undefined) {
     hauntingStart = performance.now();
   }
-  const hauntCount: number = (performance.now() - hauntingStart) / 1000;
+  const hauntCount: number = (performance.now() - hauntingStart) / millisecondsPerSecond;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
   upgradeButtonsArray.forEach((button, index) => {
