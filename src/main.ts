@@ -113,9 +113,11 @@ function continuousHaunting(): void {
   if (hauntingStart === undefined) {
     hauntingStart = performance.now();
   }
-  const hauntCount: number = (performance.now() - hauntingStart) / millisecondsPerSecond;
+  const hauntCount: number =
+    (performance.now() - hauntingStart) / millisecondsPerSecond;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
+  /*
   upgradeButtonsArray.forEach((button, index) => {
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
@@ -123,6 +125,7 @@ function continuousHaunting(): void {
       button.disabled = true;
     }
   });
+  */
   requestAnimationFrame(continuousHaunting);
 }
 
