@@ -38,7 +38,7 @@ let hauntMultiplier: number = 0;
 const clickPower: number = 1;
 const precision: number = 2;
 const costMultiplier: number = 1.15;
-const millisecondsPerSecond: number = 1000;
+//const millisecondsPerSecond: number = 1000;
 const upgradeButtons: HTMLCollectionOf<HTMLButtonElement> =
   hauntingShopDiv.getElementsByTagName("button");
 const upgradeButtonsArray: HTMLButtonElement[] = Array.from(upgradeButtons);
@@ -114,15 +114,13 @@ function continuousHaunting(): void {
   if (hauntingStart === undefined) {
     hauntingStart = performance.now();
   }
-  const hauntCount: number =
-    (performance.now() - hauntingStart) / millisecondsPerSecond;
+  const hauntCount: number = (performance.now() - hauntingStart) / 1000;
   hauntingStart = performance.now();
   haunting(hauntCount * hauntMultiplier);
   upgradeButtonsArray.forEach((button, index) => {
     if (ghosts >= availableItems[index].cost) {
       button.disabled = false;
     } else {
-      console.log("have ${ghosts}, need ${availableItems[index].cost}");
       button.disabled = true;
     }
   });

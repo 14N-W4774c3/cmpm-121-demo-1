@@ -25,7 +25,7 @@ a:hover {
 
 body {
   margin: 0;
-  background-image: 'stripes.png';
+  background-image: "src/stripes.png";
   display: flex;
   place-items: center;
   min-width: 320px;
@@ -87,6 +87,6 @@ button:focus-visible {
 }
 
 .game-score {
-background-color: DarkSlateGray;
-border-radius: 10px;
+  background-color: DarkSlateGray;
+  border-radius: 10px;
 }
